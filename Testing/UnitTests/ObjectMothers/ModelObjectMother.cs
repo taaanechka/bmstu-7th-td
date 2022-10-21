@@ -12,18 +12,32 @@ namespace UnitTests.ObjectMothers
                         .WithName("Name1");
         }
 
-        public static ModelBLBuilder UpdDefaultModel() 
-        {
-            return new ModelBLBuilder()
-                        .WithBrandId(1)
-                        .WithName("NameNew");
-        }
-
         public static ModelBLBuilder DefaultModel2() 
         {
             return new ModelBLBuilder()
                         .WithBrandId(2)
                         .WithName("Name2");
+        }
+
+        public static ModelBLBuilder DefaultModel3() 
+        {
+            return new ModelBLBuilder()
+                        .WithBrandId(3)
+                        .WithName("Name3");
+        }
+
+        public static ModelBLBuilder DefaultModel4() 
+        {
+            return new ModelBLBuilder()
+                        .WithBrandId(4)
+                        .WithName("Name4");
+        }
+
+        public static ModelBLBuilder UpdDefaultModel() 
+        {
+            return new ModelBLBuilder()
+                        .WithBrandId(1)
+                        .WithName("NameNew");
         }
 
         public static ModelBLBuilder WithoutBrandIdModel() 

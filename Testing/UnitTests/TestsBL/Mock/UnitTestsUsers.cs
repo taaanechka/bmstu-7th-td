@@ -1,3 +1,5 @@
+#nullable disable
+
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -11,12 +13,22 @@ namespace UnitTests.TestsBL;
 
 public class UnitTestsUsers
 {
-    // private static UnitTests.Entities.User? userEmpty = null;
+    private static BL.User userEmpty = null;
 
     public static IEnumerable<object[]> DataForTestGetUserCorrect =>
         new List<object[]>
         {
             new object[] {"Name1", "Surname1", "Login1", "Password1", (BL.Permissions) 3}
+        };
+
+    public static IEnumerable<object[]> DataForTestGetUserUncorrect =>
+        new List<object[]>
+        {
+            new object[] {"Name1", "", "Login1", "Password1", (BL.Permissions) 3},
+            new object[] {"", "Surname2", "Login2", "Password2", (BL.Permissions) 2},
+            new object[] {"Name3", "Surname3", "", "Password3", (BL.Permissions) 1},
+            new object[] {"Name4", "Surname4", "Login4", "", (BL.Permissions) 1},
+            new object[] {"Name5", "Surname5", "Login5", "Password5", -1}
         };
 
     public static IEnumerable<object[]> DataForTestAddUserCorrect =>
@@ -33,11 +45,15 @@ public class UnitTestsUsers
             new object[] {"Name2", "Surname2", "Login2", "Password2", (BL.Permissions) 2, "Login777"}
         };
 
-    // [Theory]
-    // [MemberData(nameof(DataForTestGetUserCorrect))]
-    // public void TestGetUsers(string name, string surname, string login, string password, BL.Permissions perm)
+    public static IEnumerable<object[]> DataForTestUpdateUserUncorrect =>
+        new List<object[]>
+        {
+            new object[] {"Name1", "Surname1", "Login1", "Password1", (BL.Permissions) 3, ""},
+            new object[] {"Name2", "", "Login2", "Password2", (BL.Permissions) 2, "Login777"}
+        };
+
     [Fact]
-    public void TestGetUsers()
+    public void TestGetUsersCorrect()
     {
         // Arrange
         var retUsers = new List<BL.User>() {
@@ -61,9 +77,31 @@ public class UnitTestsUsers
         Assert.Equal(retUsers.Count, users.Count);
     }
 
+    [Fact]
+    public void TestGetUsersUncorrect()
+    {
+        // Arrange
+        var retUsers = new List<BL.User>() {
+                        userEmpty,
+                        UserObjectMother.DefaultUser().Build(),
+                        UserObjectMother.AnalystUser().Build()
+        };
+
+        Mock<BL.IUsersRepository> mockUsersRep = new Mock<BL.IUsersRepository>();
+        mockUsersRep.Setup(r => r.GetUsers(It.IsAny<int>(), It.IsAny<int>()))
+                    .Returns(retUsers);
+
+        BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
+                                                    f.CreateUsersRepository() == mockUsersRep.Object);
+        BL.Facade facade = new BL.Facade(mockRepFactory);
+
+        // Assert
+        Assert.Throws<UsersValidatorFailException>(()=> facade.GetUsers());
+    }
+
     [Theory]
     [MemberData(nameof(DataForTestGetUserCorrect))]
-    public void TestGetUserById(string name, string surname, string login, string password, BL.Permissions perm)
+    public void TestGetUserByIdCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
         // Arrange
         var user = new UserBLBuilder()
@@ -93,9 +131,26 @@ public class UnitTestsUsers
         Assert.Equal(perm, res.UserType);
     }
 
+    [Fact]
+    public void TestGetUserByIdUncorrect()
+    {
+        // Arrange
+        var user = userEmpty;
+
+        Mock<BL.IUsersRepository> mockUsersRep = new Mock<BL.IUsersRepository>();
+        mockUsersRep.Setup(rep => rep.GetUserById(It.IsAny<int>())).Returns(user);
+
+        BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
+                                                    f.CreateUsersRepository() == mockUsersRep.Object);
+        BL.Facade facade = new BL.Facade(mockRepFactory);
+
+        // Assert
+        Assert.Throws<UsersValidatorFailException>(()=> facade.GetUserById(1));
+    }
+
     [Theory]
     [MemberData(nameof(DataForTestGetUserCorrect))]
-    public void TestGetUserByLogin(string name, string surname, string login, string password, BL.Permissions perm)
+    public void TestGetUserByLoginCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
         // Arrange
         var user = new UserBLBuilder()
@@ -126,8 +181,32 @@ public class UnitTestsUsers
     }
 
     [Theory]
+    [MemberData(nameof(DataForTestGetUserUncorrect))]
+    public void TestGetUserByLoginUncorrect(string name, string surname, string login, string password, BL.Permissions perm)
+    {
+        // Arrange
+        var user = new UserBLBuilder()
+                            .WithName(name)
+                            .WithSurname(surname)
+                            .WithLogin(login)
+                            .WithPassword(password)
+                            .WithUserType(perm)
+                            .Build();
+
+        Mock<BL.IUsersRepository> mockUsersRep = new Mock<BL.IUsersRepository>();
+        mockUsersRep.Setup(rep => rep.GetUserByLogin(It.IsAny<string>())).Returns(user);
+
+        BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
+                                                    f.CreateUsersRepository() == mockUsersRep.Object);
+        BL.Facade facade = new BL.Facade(mockRepFactory);
+
+        // Assert
+        Assert.Throws<UsersValidatorFailException>(()=> facade.GetUserByLogin("Login"));
+    }
+
+    [Theory]
     [MemberData(nameof(DataForTestAddUserCorrect))]
-    public void TestAddUser(string name, string surname, string login, string password, BL.Permissions perm)
+    public void TestAddUserCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
         // Arrange
         var user = new UserBLBuilder()
@@ -153,8 +232,32 @@ public class UnitTestsUsers
     }
 
     [Theory]
+    [MemberData(nameof(DataForTestGetUserUncorrect))]
+    public void TestAddUserUncorrect(string name, string surname, string login, string password, BL.Permissions perm)
+    {
+        // Arrange
+        var user = new UserBLBuilder()
+                            .WithName(name)
+                            .WithSurname(surname)
+                            .WithLogin(login)
+                            .WithPassword(password)
+                            .WithUserType(perm)
+                            .Build();
+
+        Mock<BL.IUsersRepository> mockUsersRep = new Mock<BL.IUsersRepository>();
+        mockUsersRep.Setup(rep => rep.AddUser(It.IsAny<BL.User>())).Verifiable();
+
+        BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
+                                                    f.CreateUsersRepository() == mockUsersRep.Object);
+        BL.Facade facade = new BL.Facade(mockRepFactory);
+
+        // Assert
+        Assert.Throws<UserAddException>(()=> facade.AddUser(user));
+    }
+
+    [Theory]
     [MemberData(nameof(DataForTestUpdateUserCorrect))]
-    public void TestUpdateUser(string name, string surname, string login, 
+    public void TestUpdateUserCorrect(string name, string surname, string login, 
                             string password, BL.Permissions perm, string loginNew)
     {
         // Arrange
@@ -187,6 +290,40 @@ public class UnitTestsUsers
 
         // Assert
         mockUsersRep.Verify(x => x.UpdateUser(1, updUser), Times.Once);
+    }
+
+    [Theory]
+    [MemberData(nameof(DataForTestUpdateUserUncorrect))]
+    public void TestUpdateUserUncorrect(string name, string surname, string login, 
+                            string password, BL.Permissions perm, string loginNew)
+    {
+        // Arrange
+        var retUser = new UserBLBuilder()
+                            .WithName(name)
+                            .WithSurname(surname)
+                            .WithLogin(login)
+                            .WithPassword(password)
+                            .WithUserType(perm)
+                            .Build();
+
+        var updUser = new UserBLBuilder()
+                            .WithName(name)
+                            .WithSurname(surname)
+                            .WithLogin(loginNew)
+                            .WithPassword(password)
+                            .WithUserType(perm)
+                            .Build();
+
+        Mock<BL.IUsersRepository> mockUsersRep = new Mock<BL.IUsersRepository>();
+        mockUsersRep.Setup(rep => rep.GetUserById(It.IsAny<int>())).Returns(retUser);
+        mockUsersRep.Setup(rep => rep.UpdateUser(It.IsAny<int>(), It.IsAny<BL.User>())).Verifiable();
+
+        BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
+                                                    f.CreateUsersRepository() == mockUsersRep.Object);
+        BL.Facade facade = new BL.Facade(mockRepFactory);
+
+        // Assert
+        Assert.Throws<UserUpdateException>(()=> facade.UpdateUser(1, updUser));
     }
 
     [Fact]

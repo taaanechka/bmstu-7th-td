@@ -15,16 +15,6 @@ namespace UnitTests.ObjectMothers
                         .WithComingId(1);
         }
 
-        public static CarBLBuilder UpdDefaultCar() 
-        {
-            return new CarBLBuilder()
-                        .WithId("Number1")
-                        .WithModelId(1)
-                        .WithEquipmentId(1)
-                        .WithColorId(6)
-                        .WithComingId(1);
-        }
-
         public static CarBLBuilder DefaultCar2() 
         {
             return new CarBLBuilder()
@@ -32,6 +22,46 @@ namespace UnitTests.ObjectMothers
                         .WithModelId(1)
                         .WithEquipmentId(1)
                         .WithColorId(5)
+                        .WithComingId(1);
+        }
+
+        public static CarBLBuilder DefaultCar3() 
+        {
+            return new CarBLBuilder()
+                        .WithId("Number3")
+                        .WithModelId(3)
+                        .WithEquipmentId(7)
+                        .WithColorId(5)
+                        .WithComingId(1);
+        }
+
+        public static CarBLBuilder DefaultCar4() 
+        {
+            return new CarBLBuilder()
+                        .WithId("Number4")
+                        .WithModelId(3)
+                        .WithEquipmentId(4)
+                        .WithColorId(4)
+                        .WithComingId(1);
+        }
+
+        public static CarBLBuilder DefaultCar5() 
+        {
+            return new CarBLBuilder()
+                        .WithId("Number5")
+                        .WithModelId(3)
+                        .WithEquipmentId(4)
+                        .WithColorId(4)
+                        .WithComingId(1);
+        }
+
+        public static CarBLBuilder UpdDefaultCar() 
+        {
+            return new CarBLBuilder()
+                        .WithId("Number1")
+                        .WithModelId(1)
+                        .WithEquipmentId(1)
+                        .WithColorId(6)
                         .WithComingId(1);
         }
 

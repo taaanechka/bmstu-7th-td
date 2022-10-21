@@ -30,10 +30,10 @@ namespace DB
             ConnectionString = conn;
         }
 
-        public ApplicationContext(ApplicationContext oldContext)
-        {
-            ConnectionString = oldContext.ConnectionString;
-        }
+        // public ApplicationContext(ApplicationContext oldContext)
+        // {
+        //     ConnectionString = oldContext.ConnectionString;
+        // }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options):
                 base(options) { }

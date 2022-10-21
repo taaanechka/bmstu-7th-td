@@ -109,7 +109,7 @@ namespace BL
                 }
                 else
                 {
-                    throw new UserNotFoundException();
+                    throw new UserNotFoundException("Invalid", exc.InnerException);
                 }
             }       
         }

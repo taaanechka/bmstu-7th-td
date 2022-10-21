@@ -143,15 +143,15 @@ namespace DB
                             p.Id == link.Id
                     select p).FirstOrDefault();
 
-                // if (LinkOwnerCarDepartureDupl != null)
-                // {
-                //     throw new LinkOwnerCarDepartureExistsException();
-                // }
+                if (LinkOwnerCarDepartureDupl != null)
+                {
+                    throw new LinkOwnerCarDepartureExistsException();
+                }
 
-                // Departure departureDB = DepartureConverter.BLToDB(departure);
+                Departure departureDB = DepartureConverter.BLToDB(departure);
 
-                // db.Departures.Add(departureDB);
-                // db.SaveChanges();
+                db.Departures.Add(departureDB);
+                db.SaveChanges();
             }
             catch (ArgumentNullException)
             {

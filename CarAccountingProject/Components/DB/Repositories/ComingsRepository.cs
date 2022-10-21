@@ -132,7 +132,17 @@ namespace DB
                 // Car? carDupl = (from p in db.Cars.AsNoTracking()
                 //         where p.Id == car.Id ||
                 //             p.ComingId == car.ComingId
-                //         select p).FirstOrDefault();                
+                //         select p).FirstOrDefault();
+
+                if (carDupl != null)
+                {
+                    throw new CarExistsException();
+                }
+
+                Coming comingDB = ComingConverter.BLToDB(coming);
+
+                db.Comings.Add(comingDB);
+                db.SaveChanges();
             }
             catch (ArgumentNullException)
             {

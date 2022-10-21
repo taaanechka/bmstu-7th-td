@@ -29,6 +29,28 @@ namespace UnitTests.ObjectMothers
                         .WithComingDate(date);
         }
 
+        public static ComingBLBuilder DefaultComing3() 
+        {
+            DateTime date = DateTime.ParseExact("2022-05-10", "yyyy-MM-dd",
+                                        System.Globalization.CultureInfo.InvariantCulture);
+            date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+
+            return new ComingBLBuilder()
+                        .WithUserId(3)
+                        .WithComingDate(date);
+        }
+
+        public static ComingBLBuilder DefaultComing4() 
+        {
+            DateTime date = DateTime.ParseExact("2022-05-15", "yyyy-MM-dd",
+                                        System.Globalization.CultureInfo.InvariantCulture);
+            date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+
+            return new ComingBLBuilder()
+                        .WithUserId(2)
+                        .WithComingDate(date);
+        }
+
         public static ComingBLBuilder WithoutDateComing() 
         {
             DateTime date = DateTime.ParseExact("2022-04-10", "yyyy-MM-dd",

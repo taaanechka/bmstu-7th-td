@@ -23,6 +23,22 @@ namespace UnitTests.ObjectMothers
                         .WithDepartureId(2);
         }
 
+        public static LinkOwnerCarDepartureBLBuilder DefaultLinkOwnerCarDeparture3() 
+        {
+            return new LinkOwnerCarDepartureBLBuilder()
+                        .WithOwnerId(1)
+                        .WithCarId("Number3")
+                        .WithDepartureId(3);
+        }
+
+        public static LinkOwnerCarDepartureBLBuilder DefaultLinkOwnerCarDeparture4() 
+        {
+            return new LinkOwnerCarDepartureBLBuilder()
+                        .WithOwnerId(1)
+                        .WithCarId("Number4")
+                        .WithDepartureId(4);
+        }
+
         public static LinkOwnerCarDepartureBLBuilder WithoutOwnerIdLinkOwnerCarDeparture() 
         {
             return new LinkOwnerCarDepartureBLBuilder()
