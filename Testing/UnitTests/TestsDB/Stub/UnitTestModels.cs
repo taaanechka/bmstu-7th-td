@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("Models Tests")]
 [Collection("DBCollection")]
 public class UnitTestModels: IDisposable
 {
@@ -28,7 +32,7 @@ public class UnitTestModels: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetModels")]
     public void TestGetModels()
     {
         // Act
@@ -38,7 +42,7 @@ public class UnitTestModels: IDisposable
         Assert.Equal(_fixture.context.Models.Count(), Models.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetModelByIdCorrect")]
     public void TestGetModelByIdCorrect()
     {
         // Act
@@ -48,14 +52,14 @@ public class UnitTestModels: IDisposable
         Assert.NotNull(Model);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetModelByIdUncorrect")]
     public void TestGetModelByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.ModelNotFoundException>(()=> _fixture.modelsRep.GetModelById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddModelCorrect")]
     public void TestAddModelCorrect()
     {
         // Arrange
@@ -70,7 +74,7 @@ public class UnitTestModels: IDisposable
         Assert.Equal(count, _fixture.context.Models.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddModelUncorrect")]
     public void TestAddModelUncorrect()
     {
         // Arrange
@@ -80,7 +84,7 @@ public class UnitTestModels: IDisposable
         Assert.Throws<DB.ModelsValidatorFailException>(()=> _fixture.modelsRep.AddModel(Model));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateModelCorrect")]
     public void TestUpdateModelCorrect()
     {
         // Arrange
@@ -96,7 +100,7 @@ public class UnitTestModels: IDisposable
         Assert.Equal(ModelUpd.Name, ModelNew.Name);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateModelUncorrect")]
     public void TestUpdateModelUncorrect()
     {
         // Arrange
@@ -106,7 +110,7 @@ public class UnitTestModels: IDisposable
         Assert.Throws<DB.ModelsValidatorFailException>(()=> _fixture.modelsRep.UpdateModel(2, ModelUpd));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteModelCorrect")]
     public void TestDeleteModelCorrect()
     {
         // Arrange
@@ -119,7 +123,7 @@ public class UnitTestModels: IDisposable
         Assert.Equal(count, _fixture.context.Models.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteModelUncorrect")]
     public void TestDeleteModelUncorrect()
     {
         // Act-Assert

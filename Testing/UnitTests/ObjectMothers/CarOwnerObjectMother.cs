@@ -49,7 +49,7 @@ namespace UnitTests.ObjectMothers
         {
             return new CarOwnerBLBuilder()
                         .WithSurname("SurnameAnalyst")
-                        .WithEmail("EmailDefault");;
+                        .WithEmail("EmailDefault");
         }
 
         public static CarOwnerBLBuilder WithoutEmailCarOwner() 

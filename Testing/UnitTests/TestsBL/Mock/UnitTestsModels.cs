@@ -2,15 +2,19 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL
+namespace UnitTests.TestsBL.Moq
 {
+    [AllureParentSuite("BLTests.Mock")]
+    [AllureSuite("Models Tests")]
     public class UnitTestModels
     {
-        [Fact]
+        [AllureXunit(DisplayName = "GetModelById")]
         public void TestGetModelById()
         {
             // Arrange
@@ -31,7 +35,7 @@ namespace UnitTests.TestsBL
             mockModelsRep.Verify(x => x.GetModelById(1), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "AddModel")]
         public void TestAddModel()
         {
             // Arrange
@@ -51,7 +55,7 @@ namespace UnitTests.TestsBL
             mockModelsRep.Verify(x => x.AddModel(model), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "UpdateModel")]
         public void TestUpdateModel()
         {
             // Arrange
@@ -73,7 +77,7 @@ namespace UnitTests.TestsBL
             mockModelsRep.Verify(x => x.UpdateModel(1, It.IsAny<BL.Model>()), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "DeleteModel")]
         public void TestDeleteModel()
         {
             // Arrange

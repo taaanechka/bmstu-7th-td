@@ -2,15 +2,20 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL
+namespace UnitTests.TestsBL.Moq
 {
+    [AllureParentSuite("BLTests.Mock")]
+    [AllureSuite("CarOwners Tests")]
     public class UnitTestsCarOwners
     {
-        [Fact]
+        [AllureXunit(DisplayName = "GetCarOwners")]
+        // [Fact]
         public void TestGetCarOwners()
         {
             // Arrange
@@ -34,7 +39,8 @@ namespace UnitTests.TestsBL
             Assert.Equal(retCarOwners.Count, CarOwners.Count);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "GetCarById")]
+        // [Fact]
         public void TestGetCarById()
         {
             // Arrange
@@ -55,7 +61,8 @@ namespace UnitTests.TestsBL
             mockCarOwnersRep.Verify(x => x.GetCarOwnerById(1), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "AddCarOwner")]
+        // [Fact]
         public void TestAddCarOwner()
         {
             // Arrange
@@ -75,7 +82,8 @@ namespace UnitTests.TestsBL
             mockCarOwnersRep.Verify(x => x.AddCarOwner(owner));
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "UpdateCarOwner")]
+        // [Fact]
         public void TestUpdateCarOwner()
         {
             // Arrange
@@ -97,7 +105,8 @@ namespace UnitTests.TestsBL
             mockCarOwnersRep.Verify(x => x.UpdateCarOwner(1, It.IsAny<BL.CarOwner>()), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "DeleteCarOwner")]
+        // [Fact]
         public void TestDeleteCarOwner()
         {
             // Arrange

@@ -2,15 +2,19 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL
+namespace UnitTests.TestsBL.Moq
 {
+    [AllureParentSuite("BLTests.Mock")]
+    [AllureSuite("Comings Tests")]
     public class UnitTestComings
     {
-        [Fact]
+        [AllureXunit(DisplayName = "GetComings")]
         public void TestGetComings()
         {
             // Arrange
@@ -34,7 +38,7 @@ namespace UnitTests.TestsBL
             Assert.Equal(retComings.Count, Comings.Count);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "GetComingById")]
         public void TestGetComingById()
         {
             // Arrange
@@ -54,7 +58,7 @@ namespace UnitTests.TestsBL
             Assert.NotNull(res);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "AddComing")]
         public void TestAddComing()
         {
             // Arrange
@@ -80,7 +84,7 @@ namespace UnitTests.TestsBL
             mockCarsRep.Verify(x => x.AddCar(It.IsAny<BL.Car>()), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "DeleteComing")]
         public void TestDeleteComing()
         {
             // Arrange

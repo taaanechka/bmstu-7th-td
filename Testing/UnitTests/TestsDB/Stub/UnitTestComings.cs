@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("Comings Tests")]
 [Collection("DBCollection")]
 public class UnitTestComings: IDisposable
 {
@@ -28,7 +32,7 @@ public class UnitTestComings: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetComings")]
     public void TestGetComings()
     {
         // Act
@@ -38,7 +42,7 @@ public class UnitTestComings: IDisposable
         Assert.Equal(_fixture.context.Comings.Count(), Comings.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetComingByIdCorrect")]
     public void TestGetComingByIdCorrect()
     {
         // Act
@@ -48,14 +52,14 @@ public class UnitTestComings: IDisposable
         Assert.NotNull(Coming);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetComingByIdUncorrect")]
     public void TestGetComingByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.ComingNotFoundException>(()=> _fixture.comsRep.GetComingById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddComingCorrect")]
     public void TestAddComingCorrect()
     {
         // Arrange
@@ -71,7 +75,7 @@ public class UnitTestComings: IDisposable
         Assert.Equal(count, _fixture.context.Comings.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddComingUncorrect")]
     public void TestAddComingUncorrect()
     {
         // Arrange
@@ -82,7 +86,7 @@ public class UnitTestComings: IDisposable
         Assert.Throws<DB.ComingsValidatorFailException>(()=> _fixture.comsRep.AddComing(Coming, car));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteComingCorrect")]
     public void TestDeleteComingCorrect()
     {
         // Arrange
@@ -95,7 +99,7 @@ public class UnitTestComings: IDisposable
         Assert.Equal(count, _fixture.context.Comings.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteComingUncorrect")]
     public void TestDeleteComingUncorrect()
     {
         // Act-Assert

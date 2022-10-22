@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("Departures Tests")]
 [Collection("DBCollection")]
 public class UnitTestDepartures: IDisposable
 {
@@ -28,7 +32,7 @@ public class UnitTestDepartures: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetDepartures")]
     public void TestGetDepartures()
     {
         // Act
@@ -38,7 +42,7 @@ public class UnitTestDepartures: IDisposable
         Assert.Equal(_fixture.context.Departures.Count(), Departures.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetDepartureByIdCorrect")]
     public void TestGetDepartureByIdCorrect()
     {
         // Act
@@ -48,14 +52,14 @@ public class UnitTestDepartures: IDisposable
         Assert.NotNull(Departure);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetDepartureByIdUncorrect")]
     public void TestGetDepartureByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.DepartureNotFoundException>(()=> _fixture.depsRep.GetDepartureById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddDepartureCorrect")]
     public void TestAddDepartureCorrect()
     {   
         // Arrange
@@ -71,7 +75,7 @@ public class UnitTestDepartures: IDisposable
         Assert.Equal(count, _fixture.context.Departures.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddDepartureUncorrect")]
     public void TestAddDepartureUncorrect()
     {
         // Arrange
@@ -83,7 +87,7 @@ public class UnitTestDepartures: IDisposable
                                                                 Departure, LinkOwnerCarDeparture));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteDepartureCorrect")]
     public void TestDeleteDepartureCorrect()
     {
         // Arrange
@@ -96,7 +100,7 @@ public class UnitTestDepartures: IDisposable
         Assert.Equal(count, _fixture.context.Departures.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteDepartureUncorrect")]
     public void TestDeleteDepartureUncorrect()
     {
         // Act-Assert

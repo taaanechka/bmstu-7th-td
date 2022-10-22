@@ -2,15 +2,19 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL
+namespace UnitTests.TestsBL.Moq
 {
+    [AllureParentSuite("BLTests.Mock")]
+    [AllureSuite("Departures Tests")]
     public class UnitTestDepartures
     {
-        [Fact]
+        [AllureXunit(DisplayName = "GetDepartures")]
         public void TestGetDepartures()
         {
             // Arrange
@@ -34,7 +38,7 @@ namespace UnitTests.TestsBL
             Assert.Equal(retDepartures.Count, Departures.Count);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "GetDepartureById")]
         public void TestGetDepartureById()
         {
             // Arrange
@@ -56,7 +60,7 @@ namespace UnitTests.TestsBL
             mockDeparturesRep.Verify(x => x.GetDepartureById(1), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "AddDeparture")]
         public void TestAddDeparture()
         {
             // Arrange
@@ -84,7 +88,7 @@ namespace UnitTests.TestsBL
                 x.AddLinkOwnerCarDeparture(It.IsAny<BL.LinkOwnerCarDeparture>()), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "GetDeleteDeparture")]
         public void TestDeleteDeparture()
         {
             // Arrange

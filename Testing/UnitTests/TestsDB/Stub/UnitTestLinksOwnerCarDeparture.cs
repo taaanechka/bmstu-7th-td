@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("LinksOwnerCarDeparture Tests")]
 [Collection("DBCollection")]
 public class UnitTestLinksOwnerCarDeparture: IDisposable
 {
@@ -27,7 +31,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetLinksOwnerCarDeparture")]
     public void TestGetLinksOwnerCarDeparture()
     {
         // Act
@@ -37,7 +41,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
         Assert.Equal(_fixture.context.LinksOwnerCarDeparture.Count(), LinksOwnerCarDeparture.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetLinkOwnerCarDepartureByIdCorrect")]
     public void TestGetLinkOwnerCarDepartureByIdCorrect()
     {
         // Act
@@ -47,7 +51,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
         Assert.NotNull(LinkOwnerCarDeparture);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetLinkOwnerCarDepartureByIdUncorrect")]
     public void TestGetLinkOwnerCarDepartureByIdUncorrect()
     {
         // Act-Assert
@@ -55,7 +59,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
                                                                         .GetLinkOwnerCarDepartureById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddLinkOwnerCarDepartureCorrect")]
     public void TestAddLinkOwnerCarDepartureCorrect()
     {
         // Arrange
@@ -70,7 +74,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
         Assert.Equal(count, _fixture.context.LinksOwnerCarDeparture.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddLinkOwnerCarDepartureUncorrect")]
     public void TestAddLinkOwnerCarDepartureUncorrect()
     {
         // Arrange
@@ -82,7 +86,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
                                                             .AddLinkOwnerCarDeparture(LinkOwnerCarDeparture));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteLinkOwnerCarDepartureCorrect")]
     public void TestDeleteLinkOwnerCarDepartureCorrect()
     {
         // Arrange
@@ -95,7 +99,7 @@ public class UnitTestLinksOwnerCarDeparture: IDisposable
         Assert.Equal(count, _fixture.context.LinksOwnerCarDeparture.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteLinkOwnerCarDepartureUncorrect")]
     public void TestDeleteLinkOwnerCarDepartureUncorrect()
     {
         // Act-Assert

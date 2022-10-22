@@ -4,13 +4,17 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.Builders;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL;
+namespace UnitTests.TestsBL.Moq;
 
+[AllureParentSuite("BLTests.Mock")]
+[AllureSuite("Users Tests")]
 public class UnitTestsUsers
 {
     private static BL.User userEmpty = null;
@@ -52,7 +56,7 @@ public class UnitTestsUsers
             new object[] {"Name2", "", "Login2", "Password2", (BL.Permissions) 2, "Login777"}
         };
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUsersCorrect")]
     public void TestGetUsersCorrect()
     {
         // Arrange
@@ -77,7 +81,7 @@ public class UnitTestsUsers
         Assert.Equal(retUsers.Count, users.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUsersUncorrect")]
     public void TestGetUsersUncorrect()
     {
         // Arrange
@@ -99,7 +103,7 @@ public class UnitTestsUsers
         Assert.Throws<UsersValidatorFailException>(()=> facade.GetUsers());
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "GetGetUserByIdCorrect")]
     [MemberData(nameof(DataForTestGetUserCorrect))]
     public void TestGetUserByIdCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
@@ -131,7 +135,7 @@ public class UnitTestsUsers
         Assert.Equal(perm, res.UserType);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUserByIdUncorrect")]
     public void TestGetUserByIdUncorrect()
     {
         // Arrange
@@ -148,7 +152,7 @@ public class UnitTestsUsers
         Assert.Throws<UsersValidatorFailException>(()=> facade.GetUserById(1));
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "GetUserByLoginCorrect")]
     [MemberData(nameof(DataForTestGetUserCorrect))]
     public void TestGetUserByLoginCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
@@ -180,7 +184,7 @@ public class UnitTestsUsers
         Assert.Equal(perm, res.UserType);
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "GetUserByLoginUncorrect")]
     [MemberData(nameof(DataForTestGetUserUncorrect))]
     public void TestGetUserByLoginUncorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
@@ -204,7 +208,7 @@ public class UnitTestsUsers
         Assert.Throws<UsersValidatorFailException>(()=> facade.GetUserByLogin("Login"));
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "AddUserCorrect")]
     [MemberData(nameof(DataForTestAddUserCorrect))]
     public void TestAddUserCorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
@@ -231,7 +235,7 @@ public class UnitTestsUsers
         mockUsersRep.Verify(x => x.AddUser(user), Times.Once);
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "AddUserUncorrect")]
     [MemberData(nameof(DataForTestGetUserUncorrect))]
     public void TestAddUserUncorrect(string name, string surname, string login, string password, BL.Permissions perm)
     {
@@ -255,7 +259,7 @@ public class UnitTestsUsers
         Assert.Throws<UserAddException>(()=> facade.AddUser(user));
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "UpdateUserCorrect")]
     [MemberData(nameof(DataForTestUpdateUserCorrect))]
     public void TestUpdateUserCorrect(string name, string surname, string login, 
                             string password, BL.Permissions perm, string loginNew)
@@ -292,7 +296,7 @@ public class UnitTestsUsers
         mockUsersRep.Verify(x => x.UpdateUser(1, updUser), Times.Once);
     }
 
-    [Theory]
+    [AllureXunitTheory(DisplayName = "UpdateUserUncorrect")]
     [MemberData(nameof(DataForTestUpdateUserUncorrect))]
     public void TestUpdateUserUncorrect(string name, string surname, string login, 
                             string password, BL.Permissions perm, string loginNew)
@@ -326,7 +330,7 @@ public class UnitTestsUsers
         Assert.Throws<UserUpdateException>(()=> facade.UpdateUser(1, updUser));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "BlockUser")]
     public void TestBlockUser()
     {
         // RepositoriesFactory

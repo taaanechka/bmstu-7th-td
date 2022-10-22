@@ -42,15 +42,15 @@ namespace UnitTests.ObjectMothers
         public static LinkOwnerCarDepartureBLBuilder WithoutOwnerIdLinkOwnerCarDeparture() 
         {
             return new LinkOwnerCarDepartureBLBuilder()
-                        .WithCarId("Number2")
-                        .WithDepartureId(2);
+                        .WithCarId("Number5")
+                        .WithDepartureId(5);
         }
 
         public static LinkOwnerCarDepartureBLBuilder WithoutCarIdIdLinkOwnerCarDeparture() 
         {
             return new LinkOwnerCarDepartureBLBuilder()
                         .WithOwnerId(1)
-                        .WithDepartureId(2);
+                        .WithDepartureId(6);
         }
     }
 }

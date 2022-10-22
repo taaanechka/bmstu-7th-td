@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("Users Tests")]
 [Collection("DBCollection")]
 public class UnitTestUsers: IDisposable
 {
@@ -28,7 +32,7 @@ public class UnitTestUsers: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUsers")]
     public void TestGetUsers()
     {
         // Act
@@ -38,7 +42,7 @@ public class UnitTestUsers: IDisposable
         Assert.Equal(_fixture.context.Users.Count(), users.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUserByIdCorrect")]
     public void TestGetUserByIdCorrect()
     {
         // Act
@@ -48,14 +52,14 @@ public class UnitTestUsers: IDisposable
         Assert.NotNull(user);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetUserByIdUncorrect")]
     public void TestGetUserByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.UserNotFoundException>(()=> _fixture.usersRep.GetUserById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddUserCorrect")]
     public void TestAddUserCorrect()
     {
         // Arrange
@@ -70,7 +74,7 @@ public class UnitTestUsers: IDisposable
         Assert.Equal(count, _fixture.context.Users.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddUserUncorrect")]
     public void TestAddUserUncorrect()
     {
         // Arrange
@@ -80,7 +84,7 @@ public class UnitTestUsers: IDisposable
         Assert.Throws<DB.UsersValidatorFailException>(()=> _fixture.usersRep.AddUser(user));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateUserCorrect")]
     public void TestUpdateUserCorrect()
     {
         // Arrange
@@ -92,13 +96,13 @@ public class UnitTestUsers: IDisposable
         var userNew = _fixture.usersRep.GetUserById(1);
 
         // Assert
-        Assert.Equal("Name1", userNew.Name);
-        Assert.Equal("Surname1", userNew.Surname);
-        Assert.Equal("LoginNew", userNew.Login);
-        Assert.Equal("Password1", userNew.Password);
+        Assert.Equal(userUpd.Name, userNew.Name);
+        Assert.Equal(userUpd.Surname, userNew.Surname);
+        Assert.Equal(userUpd.Login, userNew.Login);
+        Assert.Equal(userUpd.Password, userNew.Password);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateUserUncorrect")]
     public void TestUpdateUserUncorrect()
     {
         // Arrange
@@ -108,7 +112,7 @@ public class UnitTestUsers: IDisposable
         Assert.Throws<DB.UsersValidatorFailException>(()=> _fixture.usersRep.UpdateUser(4, userUpd));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "BlockUserCorrect")]
     public void TestBlockUserCorrect()
     {
         // Arrange
@@ -124,7 +128,7 @@ public class UnitTestUsers: IDisposable
         Assert.Equal(count, _fixture.context.Users.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "BlockUserUncorrect")]
     public void TestBlockUserUncorrect()
     {
         // Act-Assert

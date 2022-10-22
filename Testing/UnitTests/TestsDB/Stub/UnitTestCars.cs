@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,8 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("Cars Tests")]
 [Collection("DBCollection")]
 public class UnitTestCars: IDisposable
 {
@@ -28,7 +32,7 @@ public class UnitTestCars: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCars")]
     public void TestGetCars()
     {
         // Act
@@ -38,7 +42,7 @@ public class UnitTestCars: IDisposable
         Assert.Equal(_fixture.context.Cars.Count(), Cars.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCarByIdCorrect")]
     public void TestGetCarByIdCorrect()
     {
         // Act
@@ -48,14 +52,14 @@ public class UnitTestCars: IDisposable
         Assert.NotNull(Car);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCarByIdUncorrect")]
     public void TestGetCarByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.CarNotFoundException>(()=> _fixture.carsRep.GetCarById("Number5"));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetAddCarCorrect")]
     public void TestAddCarCorrect()
     {
         // Arrange
@@ -70,7 +74,7 @@ public class UnitTestCars: IDisposable
         Assert.Equal(count, _fixture.context.Cars.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddCarUncorrect")]
     public void TestAddCarUncorrect()
     {
         // Arrange
@@ -80,7 +84,7 @@ public class UnitTestCars: IDisposable
         Assert.Throws<DB.CarsValidatorFailException>(()=> _fixture.carsRep.AddCar(Car));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateCarCorrect")]
     public void TestUpdateCarCorrect()
     {
         // Arrange
@@ -96,7 +100,7 @@ public class UnitTestCars: IDisposable
         Assert.Equal(CarUpd.ColorId, CarNew.ColorId);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateCarUncorrect")]
     public void TestUpdateCarUncorrect()
     {
         // Arrange
@@ -106,7 +110,7 @@ public class UnitTestCars: IDisposable
         Assert.Throws<DB.CarsValidatorFailException>(()=> _fixture.carsRep.UpdateCar("Number3", CarUpd));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteCarCorrect")]
     public void TestDeleteCarCorrect()
     {
         // Arrange
@@ -119,7 +123,7 @@ public class UnitTestCars: IDisposable
         Assert.Equal(count, _fixture.context.Cars.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteCarUncorrect")]
     public void TestDeleteCarUncorrect()
     {
         // Act-Assert

@@ -2,15 +2,19 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using BL;
 using UnitTests.ObjectMothers;
 
-namespace UnitTests.TestsBL
+namespace UnitTests.TestsBL.Moq
 {
+    [AllureParentSuite("BLTests.Mock")]
+    [AllureSuite("Cars Tests")]
     public class UnitTestsCars
     {
-        [Fact]
+        [AllureXunit(DisplayName = "GetCars")]
         public void TestGetCars()
         {
             // Arrange
@@ -34,7 +38,7 @@ namespace UnitTests.TestsBL
             Assert.Equal(retCars.Count, Cars.Count);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "GetCarById")]
         public void TestGetCarById()
         {
             // Arrange
@@ -54,7 +58,7 @@ namespace UnitTests.TestsBL
             Assert.NotNull(res);
         }
 
-        [Fact]
+        [AllureXunit(DisplayName = "UpdateCar")]
         public void TestUpdateCar()
         {
             // Arrange

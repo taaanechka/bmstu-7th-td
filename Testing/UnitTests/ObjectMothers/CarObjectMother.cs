@@ -11,7 +11,7 @@ namespace UnitTests.ObjectMothers
                         .WithId("Number1")
                         .WithModelId(1)
                         .WithEquipmentId(1)
-                        .WithColorId(5)
+                        .WithColorId(1)
                         .WithComingId(1);
         }
 
@@ -21,8 +21,8 @@ namespace UnitTests.ObjectMothers
                         .WithId("Number2")
                         .WithModelId(1)
                         .WithEquipmentId(1)
-                        .WithColorId(5)
-                        .WithComingId(1);
+                        .WithColorId(2)
+                        .WithComingId(2);
         }
 
         public static CarBLBuilder DefaultCar3() 
@@ -30,19 +30,19 @@ namespace UnitTests.ObjectMothers
             return new CarBLBuilder()
                         .WithId("Number3")
                         .WithModelId(3)
-                        .WithEquipmentId(7)
-                        .WithColorId(5)
-                        .WithComingId(1);
+                        .WithEquipmentId(2)
+                        .WithColorId(2)
+                        .WithComingId(3);
         }
 
         public static CarBLBuilder DefaultCar4() 
         {
             return new CarBLBuilder()
                         .WithId("Number4")
-                        .WithModelId(3)
-                        .WithEquipmentId(4)
-                        .WithColorId(4)
-                        .WithComingId(1);
+                        .WithModelId(2)
+                        .WithEquipmentId(3)
+                        .WithColorId(3)
+                        .WithComingId(4);
         }
 
         public static CarBLBuilder DefaultCar5() 
@@ -52,7 +52,7 @@ namespace UnitTests.ObjectMothers
                         .WithModelId(3)
                         .WithEquipmentId(4)
                         .WithColorId(4)
-                        .WithComingId(1);
+                        .WithComingId(5);
         }
 
         public static CarBLBuilder UpdDefaultCar() 
@@ -61,26 +61,26 @@ namespace UnitTests.ObjectMothers
                         .WithId("Number1")
                         .WithModelId(1)
                         .WithEquipmentId(1)
-                        .WithColorId(6)
+                        .WithColorId(3)
                         .WithComingId(1);
         }
 
         public static CarBLBuilder WithoutNumberCar() 
         {
             return new CarBLBuilder()
-                        .WithModelId(3)
-                        .WithEquipmentId(2)
-                        .WithColorId(4)
-                        .WithComingId(2);
+                        .WithModelId(1)
+                        .WithEquipmentId(1)
+                        .WithColorId(1)
+                        .WithComingId(5);
         }
 
         public static CarBLBuilder WithoutColorCar() 
         {
             return new CarBLBuilder()
-                        .WithId("Number3")
-                        .WithModelId(6)
-                        .WithEquipmentId(8)
-                        .WithComingId(3);
+                        .WithId("Number6")
+                        .WithModelId(4)
+                        .WithEquipmentId(3)
+                        .WithComingId(7);
         }
     }
 }

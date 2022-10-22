@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using Allure.Xunit;
+using Allure.Xunit.Attributes;
 
 using DB;
 using BL;
@@ -16,6 +18,9 @@ using UnitTests.ObjectMothers;
 
 namespace UnitTests.TestsDB;
 
+
+[AllureParentSuite("DBTests.Stub")]
+[AllureSuite("CarOwners Tests")]
 [Collection("DBCollection")]
 public class UnitTestCarOwners: IDisposable
 {
@@ -28,7 +33,7 @@ public class UnitTestCarOwners: IDisposable
 
     public void Dispose() {}
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCarOwners")]
     public void TestGetCarOwners()
     {
         // Act
@@ -38,7 +43,7 @@ public class UnitTestCarOwners: IDisposable
         Assert.Equal(_fixture.context.CarOwners.Count(), CarOwners.Count);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCarOwnerByIdCorrect")]
     public void TestGetCarOwnerByIdCorrect()
     {
         // Act
@@ -48,14 +53,14 @@ public class UnitTestCarOwners: IDisposable
         Assert.NotNull(CarOwner);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "GetCarOwnerByIdUncorrect")]
     public void TestGetCarOwnerByIdUncorrect()
     {
         // Act-Assert
         Assert.Throws<DB.CarOwnerNotFoundException>(()=> _fixture.carOwnersRep.GetCarOwnerById(5));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddCarOwnerCorrect")]
     public void TestAddCarOwnerCorrect()
     {
         // Arrange
@@ -70,7 +75,7 @@ public class UnitTestCarOwners: IDisposable
         Assert.Equal(count, _fixture.context.CarOwners.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "AddCarOwnerUncorrect")]
     public void TestAddCarOwnerUncorrect()
     {
         // Arrange
@@ -80,7 +85,7 @@ public class UnitTestCarOwners: IDisposable
         Assert.Throws<DB.CarOwnersValidatorFailException>(()=> _fixture.carOwnersRep.AddCarOwner(CarOwner));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateCarOwnerCorrect")]
     public void TestUpdateCarOwnerCorrect()
     {
         // Arrange
@@ -92,12 +97,12 @@ public class UnitTestCarOwners: IDisposable
         var CarOwnerNew = _fixture.carOwnersRep.GetCarOwnerById(2);
 
         // Assert
-        Assert.Equal("NameDefault2", CarOwnerNew.Name);
-        Assert.Equal("SurnameUpd", CarOwnerNew.Surname);
-        Assert.Equal("EmailDefault2", CarOwnerNew.Email);
+        Assert.Equal(CarOwnerUpd.Name, CarOwnerNew.Name);
+        Assert.Equal(CarOwnerUpd.Surname, CarOwnerNew.Surname);
+        Assert.Equal(CarOwnerUpd.Email, CarOwnerNew.Email);
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "UpdateCarOwnerUncorrect")]
     public void TestUpdateCarOwnerUncorrect()
     {
         // Arrange
@@ -107,7 +112,7 @@ public class UnitTestCarOwners: IDisposable
         Assert.Throws<DB.CarOwnersValidatorFailException>(()=> _fixture.carOwnersRep.UpdateCarOwner(2, CarOwnerUpd));
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteCarOwnerCorrect")]
     public void TestDeleteCarOwnerCorrect()
     {
         // Arrange
@@ -120,7 +125,7 @@ public class UnitTestCarOwners: IDisposable
         Assert.Equal(count, _fixture.context.CarOwners.Count());
     }
 
-    [Fact]
+    [AllureXunit(DisplayName = "DeleteCarOwnerUncorrect")]
     public void TestDeleteCarOwnerUncorrect()
     {
         // Act-Assert
