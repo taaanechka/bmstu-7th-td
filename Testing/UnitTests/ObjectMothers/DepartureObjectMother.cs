@@ -7,9 +7,9 @@ namespace UnitTests.ObjectMothers
 {
     public class DepartureObjectMother
     {
-        public static DepartureBLBuilder DefaultDeparture() 
+        public static DepartureBLBuilder DefaultDeparture(string strDate = "2022-04-10") 
         {
-            DateTime date = DateTime.ParseExact("2022-04-10", "yyyy-MM-dd",
+            DateTime date = DateTime.ParseExact(strDate, "yyyy-MM-dd",
                                         System.Globalization.CultureInfo.InvariantCulture);
             date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
 

@@ -34,7 +34,7 @@ namespace UnitTests.TestsBL.Moq
             // Act
             List<BL.Car> Cars = facade.GetCars();
 
-            //
+            // Assert
             Assert.Equal(retCars.Count, Cars.Count);
         }
 
@@ -63,13 +63,6 @@ namespace UnitTests.TestsBL.Moq
         {
             // Arrange
             var retCar = CarObjectMother.DefaultCar().Build();
-            // var retCar = new CarBLBuilder()
-            //             .WithId("Number1")
-            //             .WithModelId(1)
-            //             .WithEquipmentId(1)
-            //             .WithColorId(5)
-            //             .WithComingId(1)
-            //             .Build();
 
             // RepositoriesFactory
             Mock<BL.ICarsRepository> mockCarsRep = new Mock<BL.ICarsRepository>();

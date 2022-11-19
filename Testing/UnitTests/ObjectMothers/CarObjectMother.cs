@@ -5,14 +5,14 @@ namespace UnitTests.ObjectMothers
 {
     public class CarObjectMother
     {
-        public static CarBLBuilder DefaultCar() 
+        public static CarBLBuilder DefaultCar(int comId = 1) 
         {
             return new CarBLBuilder()
                         .WithId("Number1")
                         .WithModelId(1)
                         .WithEquipmentId(1)
                         .WithColorId(1)
-                        .WithComingId(1);
+                        .WithComingId(comId);
         }
 
         public static CarBLBuilder DefaultCar2() 
@@ -81,6 +81,15 @@ namespace UnitTests.ObjectMothers
                         .WithModelId(4)
                         .WithEquipmentId(3)
                         .WithComingId(7);
+        }
+
+        public static CarBLBuilder DefaultCarWithoutComingId() 
+        {
+            return new CarBLBuilder()
+                        .WithId("Number1")
+                        .WithModelId(1)
+                        .WithEquipmentId(1)
+                        .WithColorId(1);
         }
     }
 }

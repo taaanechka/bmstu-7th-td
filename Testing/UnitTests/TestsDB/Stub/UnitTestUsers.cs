@@ -109,7 +109,7 @@ public class UnitTestUsers: IDisposable
         var userUpd = UserObjectMother.WithoutLoginUser().Build();
 
         // Act-Assert
-        Assert.Throws<DB.UsersValidatorFailException>(()=> _fixture.usersRep.UpdateUser(4, userUpd));
+        Assert.Throws<DB.UsersValidatorFailException>(()=> _fixture.usersRep.UpdateUser(3, userUpd));
     }
 
     [AllureXunit(DisplayName = "BlockUserCorrect")]
