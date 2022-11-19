@@ -1,0 +1,28 @@
+# Allure report http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
+
+version: '3.9'
+
+services:
+
+  postgres-unit:
+    build:
+      context: ./database_postgres
+      # dockerfile: ./database_postgres/Dockerfile
+    container_name: postgres-db-test
+    env_file:
+      - ./database_postgres/.env
+    ports:
+      - 5432:5432
+    # restart: unless-stopped
+    restart: always
+
+  allure-unit:
+    image: "frankescobar/allure-docker-service"
+    container_name: allure-unit-tests
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 5
+      KEEP_HISTORY: 1
+    ports:
+      - "5050:5050"
+    volumes:
+      - ../../UnitTests/bin/Debug/net6.0/allure-results:/app/allure-results
