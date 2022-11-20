@@ -6,7 +6,6 @@
 
 # data
 *.txt
-*.csv
 
 # User-specific files
 *.rsuser
