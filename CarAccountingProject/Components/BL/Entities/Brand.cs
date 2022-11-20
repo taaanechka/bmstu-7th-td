@@ -1,7 +1,12 @@
+#nullable disable
+
 namespace BL
 {
     public class Brand
     {
+        protected Brand ()
+        {}
+        
         public Brand (int id, string name, string mcountry, string wheel)
         {
             Id = id;

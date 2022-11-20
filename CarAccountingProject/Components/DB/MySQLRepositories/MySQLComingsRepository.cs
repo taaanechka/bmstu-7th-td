@@ -102,7 +102,7 @@ namespace DB
             }
         }
 
-        public void AddComing(BL.Coming coming, BL.Car car)
+        public BL.Coming AddComing(BL.Coming coming, BL.Car car)
         {
             // Validation
             try
@@ -142,9 +142,11 @@ namespace DB
             db.Comings.Add(comingDB);
             db.SaveChanges();
 
-            BL.Car newCar = new BL.Car(car.Id, car.ModelId, car.EquipmentId, car.ColorId, comingDB.Id);
-            MySQLCarsRepository carRep = new MySQLCarsRepository(db);
-            carRep.AddCar(newCar);
+            return ComingConverter.DBToBL(comingDB);
+
+            // BL.Car newCar = new BL.Car(car.Id, car.ModelId, car.EquipmentId, car.ColorId, comingDB.Id);
+            // MySQLCarsRepository carRep = new MySQLCarsRepository(db);
+            // carRep.AddCar(newCar);
         }
 
         public void DeleteComing(int id)

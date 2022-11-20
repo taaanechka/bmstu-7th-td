@@ -10,7 +10,7 @@ namespace BL
         List<Departure> GetDeparturesBetweenDates(DateTime date1, DateTime date2);
         List<Departure> GetDeparturesByUserId(int uId);
         Departure GetDepartureById(int id);
-        void AddDeparture(Departure departure, LinkOwnerCarDeparture link);
+        Departure AddDeparture(Departure departure, LinkOwnerCarDeparture link);
         void DeleteDeparture(int id);
     }
 }
