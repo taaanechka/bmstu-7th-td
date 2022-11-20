@@ -39,8 +39,8 @@
 name: .NET Core Testing
 
 on:
-  push:
-    branches: [ "main" ]
+ # push:
+ #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -48,9 +48,9 @@ jobs:
 
   build:
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
+  #  strategy:
+  #    matrix:
+  #      configuration: [Debug, Release]
 
     runs-on: ubuntu-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -99,14 +99,15 @@ jobs:
       run: dotnet test ${PWD}/Testing/IntegrationTests/IntegrationTests.csproj
 
     - name: Stop Integration Container in Docker
-      run: |
-        docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml stop postgres-integration
-        docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml rm -f  #delete stopped containers
-#       run: docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml down
+    #  run: |
+    #    docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml stop postgres-integration
+    #    docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml rm -f  #delete stopped containers
+      run: docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml down
 
     # E2E Test
     - name: Start E2E Container in Docker
-      run: docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml up -d postgres-integration
+     # run: docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml up -d postgres-integration
+      run: docker-compose -f ${PWD}/Testing/docker/IntegrationContainer/docker-compose.yml up -d
 
     - name: Run E2E Test
       run: dotnet test ${PWD}/Testing/E2ETest/E2ETest.csproj
