@@ -69,10 +69,13 @@ namespace UnitTests.TestsBL.Moq
             var departure = DepartureObjectMother.DefaultDeparture().Build();
 
             Mock<BL.IDeparturesRepository> mockDeparturesRep = new Mock<BL.IDeparturesRepository>();
-            mockDeparturesRep.Setup(rep => rep.AddDeparture(It.IsAny<BL.Departure>(), It.IsAny<BL.LinkOwnerCarDeparture>())).Verifiable();
+            mockDeparturesRep.Setup(rep => rep.AddDeparture(It.IsAny<BL.Departure>(), It.IsAny<BL.LinkOwnerCarDeparture>()))
+                                                .Returns(departure)
+                                                .Verifiable();
 
             Mock<BL.ILinksOwnerCarDepartureRepository> mockLinksOwnerCarDepartureRep = new Mock<BL.ILinksOwnerCarDepartureRepository>();
-            mockLinksOwnerCarDepartureRep.Setup(rep => rep.AddLinkOwnerCarDeparture(It.IsAny<BL.LinkOwnerCarDeparture>())).Verifiable();
+            mockLinksOwnerCarDepartureRep.Setup(rep => rep.AddLinkOwnerCarDeparture(It.IsAny<BL.LinkOwnerCarDeparture>()))
+                                                            .Verifiable();
 
             BL.IRepositoriesFactory mockRepFactory = Mock.Of<BL.IRepositoriesFactory>(f => 
                                                         f.CreateDeparturesRepository() == mockDeparturesRep.Object &&
