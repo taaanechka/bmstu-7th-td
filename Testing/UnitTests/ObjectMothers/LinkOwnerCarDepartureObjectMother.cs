@@ -7,11 +7,11 @@ namespace UnitTests.ObjectMothers
 {
     public class LinkOwnerCarDepartureObjectMother
     {
-        public static LinkOwnerCarDepartureBLBuilder DefaultLinkOwnerCarDeparture() 
+        public static LinkOwnerCarDepartureBLBuilder DefaultLinkOwnerCarDeparture(string carNumber = "Number1") 
         {
             return new LinkOwnerCarDepartureBLBuilder()
                         .WithOwnerId(1)
-                        .WithCarId("Number1")
+                        .WithCarId(carNumber)
                         .WithDepartureId(1);
         }
 

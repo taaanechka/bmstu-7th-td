@@ -261,7 +261,7 @@ namespace BL
                 }
                 else
                 {
-                    throw new UserNotFoundException();
+                    throw new UserNotFoundException("Not Found.", exc.InnerException);
                 }
             }
         }
@@ -305,9 +305,9 @@ namespace BL
             
                 return 0;
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                throw new UserUpdateException();
+                throw new UserUpdateException("Update error", exc.InnerException);
             }
         }
 
@@ -508,9 +508,9 @@ namespace BL
                 ComingsValidator.ValidateComing(com);
 
 
-                comRep.AddComing(com, car);
+                var retCom = comRep.AddComing(com, car);
                 
-                var carNew = new BL.Car(car.Id, car.ModelId, car.EquipmentId, car.ColorId, com.Id);
+                var carNew = new BL.Car(car.Id, car.ModelId, car.EquipmentId, car.ColorId, retCom.Id);
                 carRep.AddCar(carNew);
             
                 return 0;
@@ -527,7 +527,7 @@ namespace BL
                 }
                 else
                 {
-                    throw new ComingAddException("ADD error.", exc);
+                    throw new ComingAddException("ADD error.", exc.InnerException);
                 }
             }
         }
@@ -729,9 +729,9 @@ namespace BL
                 DeparturesValidator.ValidateDeparture(dep);
                 LinksOwnerCarDepartureValidator.ValidateLinkOwnerCarDeparture(link);
 
-                depRep.AddDeparture(dep, link);
+                var retDep = depRep.AddDeparture(dep, link);
 
-                var linkNew = new LinkOwnerCarDeparture(link.Id, link.OwnerId, link.CarId, dep.Id);
+                var linkNew = new LinkOwnerCarDeparture(link.Id, link.OwnerId, link.CarId, retDep.Id);
                 linkRep.AddLinkOwnerCarDeparture(linkNew);
 
                 return 0;

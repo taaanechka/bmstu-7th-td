@@ -226,7 +226,7 @@ namespace DB
             {
                 throw new LinksOwnerCarDepartureValidatorFailException();
             }
-
+            
             // Exists
             LinkOwnerCarDeparture LinkOwnerCarDepartureDupl = (from p in db.LinksOwnerCarDeparture.AsNoTracking()
                     where p.CarId == LinkOwnerCarDeparture.CarId ||

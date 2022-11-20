@@ -102,7 +102,7 @@ namespace DB
             }
         }
 
-        public void AddDeparture(BL.Departure departure, BL.LinkOwnerCarDeparture link)
+        public BL.Departure AddDeparture(BL.Departure departure, BL.LinkOwnerCarDeparture link)
         {
             // Validation
             try
@@ -139,9 +139,11 @@ namespace DB
             db.Departures.Add(DepartureConverter.BLToDB(departure));
             db.SaveChanges(); 
 
-            BL.LinkOwnerCarDeparture newLink = new BL.LinkOwnerCarDeparture(link.Id, link.OwnerId, link.CarId, departureDB.Id);
-            MySQLLinksOwnerCarDepartureRepository linkRep = new MySQLLinksOwnerCarDepartureRepository(db);
-            linkRep.AddLinkOwnerCarDeparture(newLink);    
+            return DepartureConverter.DBToBL(departureDB);
+
+            // BL.LinkOwnerCarDeparture newLink = new BL.LinkOwnerCarDeparture(link.Id, link.OwnerId, link.CarId, departureDB.Id);
+            // MySQLLinksOwnerCarDepartureRepository linkRep = new MySQLLinksOwnerCarDepartureRepository(db);
+            // linkRep.AddLinkOwnerCarDeparture(newLink);    
         }
 
         public void DeleteDeparture(int id)

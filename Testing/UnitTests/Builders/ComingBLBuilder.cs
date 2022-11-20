@@ -15,6 +15,12 @@ namespace UnitTests.Builders
             _coming = new UnitTests.Entities.Coming();
         }
 
+        public ComingBLBuilder WithId(int id)
+        {
+            _coming.Id = id;
+            return this;
+        }
+
         public ComingBLBuilder WithUserId(int userId)
         {
             _coming.UserId = userId;

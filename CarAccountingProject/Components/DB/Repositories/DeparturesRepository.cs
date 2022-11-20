@@ -103,7 +103,7 @@ namespace DB
             }
         }
 
-        public void AddDeparture(BL.Departure departure, BL.LinkOwnerCarDeparture link)
+        public BL.Departure AddDeparture(BL.Departure departure, BL.LinkOwnerCarDeparture link)
         {
             // Validation
             try
@@ -124,20 +124,9 @@ namespace DB
                 throw new DepartureExistsException();
             }
 
-            // // Exists link
-            // LinkOwnerCarDeparture LinkOwnerCarDepartureDupl = (from p in db.LinksOwnerCarDeparture.AsNoTracking()
-            //         where p.CarId == link.CarId ||
-            //                 p.Id == link.Id
-            //         select p).FirstOrDefault();
-
-            // if (LinkOwnerCarDepartureDupl != null)
-            // {
-            //     throw new LinkOwnerCarDepartureExistsException();
-            // }
-
-            // Exists link
             try
             {
+                // Exists link
                 LinkOwnerCarDeparture LinkOwnerCarDepartureDupl = (from p in db.LinksOwnerCarDeparture.AsNoTracking()
                     where p.CarId == link.CarId ||
                             p.Id == link.Id
@@ -152,6 +141,8 @@ namespace DB
 
                 db.Departures.Add(departureDB);
                 db.SaveChanges();
+
+                return DepartureConverter.DBToBL(departureDB);
             }
             catch (ArgumentNullException)
             {
@@ -159,6 +150,8 @@ namespace DB
 
                 db.Departures.Add(departureDB);
                 db.SaveChanges();
+
+                return DepartureConverter.DBToBL(departureDB);
 
                 // BL.LinkOwnerCarDeparture newLink = new BL.LinkOwnerCarDeparture(link.Id, link.OwnerId, link.CarId, departureDB.Id);
                 // LinksOwnerCarDepartureRepository linkRep = new LinksOwnerCarDepartureRepository(db);

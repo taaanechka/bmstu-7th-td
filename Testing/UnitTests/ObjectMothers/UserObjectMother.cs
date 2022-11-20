@@ -65,7 +65,7 @@ namespace UnitTests.ObjectMothers
                         .WithUserType(Permissions.ANALYST);
         }
 
-        public static UserBLBuilder AdminUser() 
+        public static UserBLBuilder AdminUser()
         {
             return new UserBLBuilder()
                         .WithName("NameAdmin")

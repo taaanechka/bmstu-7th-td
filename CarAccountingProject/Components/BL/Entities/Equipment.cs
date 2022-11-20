@@ -1,7 +1,12 @@
+#nullable disable
+
 namespace BL
 {
     public class Equipment
     {
+        protected Equipment ()
+        {}
+
         public Equipment (int id, string category, string gear, string rooftype)
         {
             Id = id;

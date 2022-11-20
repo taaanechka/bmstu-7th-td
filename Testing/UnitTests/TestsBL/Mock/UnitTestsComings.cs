@@ -66,7 +66,9 @@ namespace UnitTests.TestsBL.Moq
             var coming = ComingObjectMother.DefaultComing().Build();
 
             Mock<BL.IComingsRepository> mockComingsRep = new Mock<BL.IComingsRepository>();
-            mockComingsRep.Setup(rep => rep.AddComing(It.IsAny<BL.Coming>(), It.IsAny<BL.Car>())).Verifiable();
+            mockComingsRep.Setup(rep => rep.AddComing(It.IsAny<BL.Coming>(), It.IsAny<BL.Car>()))
+                                            .Returns(coming)
+                                            .Verifiable();
 
             Mock<BL.ICarsRepository> mockCarsRep = new Mock<BL.ICarsRepository>();
             mockCarsRep.Setup(rep => rep.AddCar(It.IsAny<BL.Car>())).Verifiable();

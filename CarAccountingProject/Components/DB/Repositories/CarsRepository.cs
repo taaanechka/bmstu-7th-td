@@ -148,22 +148,31 @@ namespace DB
                 throw new CarsValidatorFailException();
             }
 
-            // Exists
-            Car carDupl = (from p in db.Cars.AsNoTracking()
-                    where p.Id == car.Id 
-                    select p).FirstOrDefault();
-            // Car? carDupl = (from p in db.Cars.AsNoTracking()
-            //         where p.Id == car.Id ||
-            //             p.ComingId == car.ComingId
-            //         select p).FirstOrDefault();
-
-            if (carDupl != null)
+            try
             {
-                throw new CarExistsException();
+                // Exists
+                Car carDupl = (from p in db.Cars.AsNoTracking()
+                        where p.Id == car.Id 
+                        select p).FirstOrDefault();
+                // Car? carDupl = (from p in db.Cars.AsNoTracking()
+                //         where p.Id == car.Id ||
+                //             p.ComingId == car.ComingId
+                //         select p).FirstOrDefault();
+
+                if (carDupl != null)
+                {
+                    throw new CarExistsException();
+                }
+                
+                db.Cars.Add(CarConverter.BLToDB(car));
+                db.SaveChanges();
             }
-            
-            db.Cars.Add(CarConverter.BLToDB(car));
-            db.SaveChanges();          
+            catch (ArgumentNullException)
+            {
+                db.Cars.Add(CarConverter.BLToDB(car));
+                db.SaveChanges();
+            }
+                     
         }
 
         public void UpdateCar(string id, BL.Car newCar)

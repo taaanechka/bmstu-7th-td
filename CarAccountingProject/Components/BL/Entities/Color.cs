@@ -1,7 +1,12 @@
+#nullable disable
+
 namespace BL
 {
     public class Color
     {
+        protected Color ()
+        {}
+        
         public Color (int id, string name)
         {
             

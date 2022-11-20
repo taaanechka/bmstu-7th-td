@@ -102,7 +102,7 @@ namespace DB
             }
         }
 
-        public void AddComing(BL.Coming coming, BL.Car car)
+        public BL.Coming AddComing(BL.Coming coming, BL.Car car)
         {
             // Validation
             try
@@ -143,6 +143,8 @@ namespace DB
 
                 db.Comings.Add(comingDB);
                 db.SaveChanges();
+
+                return ComingConverter.DBToBL(comingDB);
             }
             catch (ArgumentNullException)
             {
@@ -150,6 +152,8 @@ namespace DB
 
                 db.Comings.Add(comingDB);
                 db.SaveChanges();
+
+                return ComingConverter.DBToBL(comingDB);
 
                 // BL.Car newCar = new BL.Car(car.Id, car.ModelId, car.EquipmentId, car.ColorId, comingDB.Id);
                 // CarsRepository carRep = new CarsRepository(db);

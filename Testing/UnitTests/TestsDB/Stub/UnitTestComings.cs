@@ -69,9 +69,11 @@ public class UnitTestComings: IDisposable
         var count = _fixture.context.Comings.Count() + 1;
 
         // Act
-        _fixture.comsRep.AddComing(Coming, car);
+        var retComing = _fixture.comsRep.AddComing(Coming, car);
 
         // Assert
+        Assert.Equal(Coming.UserId, retComing.UserId);
+        Assert.Equal(Coming.ComingDate, retComing.ComingDate);
         Assert.Equal(count, _fixture.context.Comings.Count());
     }
 

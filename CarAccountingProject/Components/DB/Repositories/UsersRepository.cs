@@ -186,6 +186,12 @@ namespace DB
                 {
                     throw new UserExistsException();
                 }
+
+                user.Name = newUser.Name;
+                user.Surname = newUser.Surname;
+                user.Login = newUser.Login;
+                user.Password = newUser.Password;
+                db.SaveChanges();
             }
             catch(UserNotFoundException)
             {

@@ -10,7 +10,7 @@ namespace BL
         List<Coming> GetComingsBetweenDates(DateTime date1, DateTime date2);
         List<Coming> GetComingsByUserId(int uId);
         Coming GetComingById(int id);
-        void AddComing(Coming com, Car car);
+        Coming AddComing(Coming com, Car car);
         void DeleteComing(int id);
     }
 }

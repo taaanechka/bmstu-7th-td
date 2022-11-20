@@ -69,9 +69,11 @@ public class UnitTestDepartures: IDisposable
         var count = _fixture.context.Departures.Count() + 1;
 
         // Act
-        _fixture.depsRep.AddDeparture(Departure, LinkOwnerCarDeparture);
+        var retDeparture = _fixture.depsRep.AddDeparture(Departure, LinkOwnerCarDeparture);
 
         // Assert
+        Assert.Equal(Departure.UserId, retDeparture.UserId);
+        Assert.Equal(Departure.DepartureDate, retDeparture.DepartureDate);
         Assert.Equal(count, _fixture.context.Departures.Count());
     }
 
