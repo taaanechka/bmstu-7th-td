@@ -15,6 +15,12 @@ namespace UnitTests.Builders
             _departure = new UnitTests.Entities.Departure();
         }
 
+        public DepartureBLBuilder WithId(int id)
+        {
+            _departure.Id = id;
+            return this;
+        }
+
         public DepartureBLBuilder WithUserId(int userId)
         {
             _departure.UserId = userId;

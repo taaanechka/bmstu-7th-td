@@ -18,6 +18,18 @@ namespace UnitTests.ObjectMothers
                         .WithDepartureDate(date);
         }
 
+        public static DepartureBLBuilder DefaultDepartureWithId(string strDate = "2022-04-10") 
+        {
+            DateTime date = DateTime.ParseExact(strDate, "yyyy-MM-dd",
+                                        System.Globalization.CultureInfo.InvariantCulture);
+            date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+
+            return new DepartureBLBuilder()
+                        .WithId(1150)
+                        .WithUserId(1)
+                        .WithDepartureDate(date);
+        }
+
         public static DepartureBLBuilder DefaultDeparture2() 
         {
             DateTime date = DateTime.ParseExact("2022-04-10", "yyyy-MM-dd",
