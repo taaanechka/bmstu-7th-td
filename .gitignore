@@ -6,6 +6,7 @@
 
 # data
 *.txt
+report/
 
 # User-specific files
 *.rsuser
