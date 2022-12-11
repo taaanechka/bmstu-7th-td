@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  embedioapp: 
+    build:
+      dockerfile: ../Scripts/dockerEmbedIO/Dockerfile
+      context: ../../EmbedIOApp
+    # network_mode: host
+    networks:
+      - hostout
+    ports:
+      - 80:80
+    volumes:
+      - ../../EmbedIOApp/Data:/app/Data
+    restart: always
+
+networks:
+  hostout:
+    driver: bridge
+
